@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import "./App.css";
 import Stopwatch from "./Stopwatch.tsx";
 import React from "react";
@@ -18,10 +18,11 @@ function App() {
     { id: "nb", display: "Non-Binaire", time: 0 },
   ]);
 
+  const intervalRef = useRef(0);
+
   useEffect(() => {
-    let interval;
     if (runningGender) {
-      interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         setGenders((prevState) => {
           const index = prevState.findIndex(
             (gender) => gender.id === runningGender
@@ -32,26 +33,37 @@ function App() {
         });
       }, 10);
     } else if (!runningGender) {
-      clearInterval(interval);
+      clearInterval(intervalRef.current);
     }
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalRef.current);
   }, [runningGender]);
+
+  const stopCounter = () => {
+    clearInterval(intervalRef.current);
+  };
 
   return (
     <div className="App">
-      {genders.map((gender) => (
-        <Fragment key={gender.id}>
-          <Stopwatch
-            display={gender.display}
-            key={gender.id}
-            time={gender.time}
-            running={runningGender === gender.id}
-          />
-          <button onClick={() => startGender(gender.id)}>
-            Start {gender.display}
-          </button>
-        </Fragment>
-      ))}
+      <Fragment>
+        <div className="counters">
+          {genders.map((gender) => (
+            <Fragment key={gender.id}>
+              <Stopwatch
+                display={gender.display}
+                key={gender.id}
+                time={gender.time}
+                running={runningGender === gender.id}
+              />
+              <button onClick={() => startGender(gender.id)}>
+                Start {gender.display}
+              </button>
+            </Fragment>
+          ))}
+        </div>
+        <button id="stop" onClick={stopCounter}>
+          Pause
+        </button>
+      </Fragment>
     </div>
   );
 }
