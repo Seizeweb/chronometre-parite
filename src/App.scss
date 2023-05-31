@@ -1,0 +1,50 @@
+$main: #ff715b;
+$text: #fff;
+
+$dark: #4c5b5cff;
+$second: #f9cb40ff;
+$third: #bced09ff;
+$fourth: #2f52e0ff;
+
+body {
+  background: $main;
+  color: $text;
+  text-align: center;
+}
+
+.counters {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.general-controls {
+  margin-top: 5rem;
+  .btn {
+    font-size: 1.5rem;
+    &:not(:last-of-type) {
+      margin-right: 1.5rem;
+    }
+  }
+}
+
+.btn {
+  background: $text;
+  color: $dark;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 3px;
+  transition: all 0.3s;
+  box-shadow: 0 10px 20px rgba($dark, 0.1), 0 6px 6px rgba($dark, 0.23);
+  margin-top: 1.5rem;
+  font-size: 1rem;
+
+  &:focus {
+    box-shadow: 0 3px 6px rgba($dark, 0.1), 0 3px 6px rgba($dark, 0.23);
+  }
+  &:hover {
+    box-shadow: 0 10px 23px rgba($dark, 0.19), 0 6px 10px rgba($dark, 0.28);
+    cursor: pointer;
+  }
+}

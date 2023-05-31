@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import "./App.css";
+import "./App.scss";
 import Stopwatch from "./Stopwatch.tsx";
 import React from "react";
 
@@ -10,6 +10,7 @@ function App() {
   const [sure, setSure] = useState(false);
 
   const startGender = async (genderId) => {
+    setSure(false);
     if (runningGender !== genderId) setRunningGender(genderId);
   };
 
@@ -46,12 +47,15 @@ function App() {
   }, [runningGender]);
 
   const stopCounters = () => {
+    setRunningGender(null);
     clearInterval(intervalRef.current);
   };
 
   const resetCounters = () => {
+    setRunningGender(null);
     clearInterval(intervalRef.current);
     if (sure) {
+      setTotalTime(0);
       setGenders((prevState) => {
         const newState = [...prevState];
         for (let el of newState) {
@@ -70,13 +74,14 @@ function App() {
     <div className="App">
       <Fragment>
         <h1 id="totalCount">
+          <span>Temps de parole total : </span>
           <span>{("0" + Math.floor((totalTime / 60000) % 60)).slice(-2)}:</span>
           <span>{("0" + Math.floor((totalTime / 1000) % 60)).slice(-2)}:</span>
           <span>{("0" + ((totalTime / 10) % 100)).slice(-2)}</span>
         </h1>
         <div className="counters">
           {genders.map((gender) => (
-            <Fragment key={gender.id}>
+            <div className="counter" key={gender.id}>
               <Stopwatch
                 display={gender.display}
                 key={gender.id}
@@ -84,18 +89,20 @@ function App() {
                 count={gender.count}
                 running={runningGender === gender.id}
               />
-              <button onClick={() => startGender(gender.id)}>
+              <button onClick={() => startGender(gender.id)} className="btn">
                 Start {gender.display}
               </button>
-            </Fragment>
+            </div>
           ))}
         </div>
-        <button id="stop" onClick={stopCounters}>
-          Pause
-        </button>
-        <button id="reset" onClick={resetCounters}>
-          {!sure ? "Réinitialiser" : "Êtes-vous sûr ?"}
-        </button>
+        <div className="general-controls">
+          <button id="stop" onClick={stopCounters} className="btn">
+            Pause
+          </button>
+          <button id="reset" onClick={resetCounters} className="btn">
+            {!sure ? "Réinitialiser" : "Êtes-vous sûr ?"}
+          </button>
+        </div>
       </Fragment>
     </div>
   );
