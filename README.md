@@ -1,3 +1,21 @@
+# What is this
+
+A project I've created a while ago. It's outdated in many ways (uses CRA, a very old version of react, has no tests, has no CI/CD...)
+But some people seem to find it useful, which is great. If there are any changes you want to make, stuff you want to add, please check "how to contribute" below.
+
+If you want to tackle any of the chores above (making the app a bit more up to date) : be my guest.
+
+# How to contribute
+
+You can open a PR and I'll review it. Make sure your commits names and PR descriptions are clear enough please. 
+
+# Get in touch
+
+=> kronos.pry816@passmail.net
+
+
+# ⬇__________ CRA Readme template below ___________⬇
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
